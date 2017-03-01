@@ -13,9 +13,9 @@ module.exports = function SignInCtrl($scope, $http) {
         // $scope.error = null
         // location.replace(response.redirect)
 
-         $scope.error = null;
-         console.log(response);
-         var redirect = response.redirect.replace('10.0.2.124:7100', 'stf.local');
+        $scope.error = null;
+        console.log('{api}/auth/api/v1/mock',response);
+        var redirect = response.redirect.replace('10.0.2.124:7100', 'stf.local');
         location.replace(redirect);
       })
       .error(function(response) {

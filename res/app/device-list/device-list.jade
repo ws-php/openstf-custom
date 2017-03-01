@@ -9,7 +9,7 @@
         .widget-content.padded
 
           .filtering-buttons
-            datalist(id='searchFields')
+            datalist(id='searchFields',v-ken="v-ken123")
               select(name='searchFields')
                 option(ng-repeat='column in columns', ng-value='column.name + ": "',
                 ng-bind='columnDefinitions[column.name].title | translate')
