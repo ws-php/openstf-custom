@@ -1,0 +1,29 @@
+可能会用到的代码片段
+
+```
+// C:\work\space\stf-all\openstf-custom\res\app\components\stf\device\device-service.js
+
+oboe('/api/v1/user/devices')
+      .node('devices[*]', function(device) {
+        tracker.add(device)
+      })
+
+ deviceService.load = function(serial) {
+    return $http.get('/api/v1/devices/' + serial)
+      .then(function(response) {
+        return response.data.device
+      })
+  }
+
+function fetch(data) {
+      deviceService.load(data.serial)
+        .then(function(device) {
+          return changeListener({
+            important: true
+          , data: device
+          })
+        })
+        .catch(function() {})
+    }
+
+```

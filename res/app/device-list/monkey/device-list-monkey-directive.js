@@ -1,4 +1,4 @@
-module.exports = function DeviceListEmptyDirective() {
+module.exports = function DeviceListMonkeyDirective() {
   return {
     restrict: 'E'
   , template: require('./device-list-monkey.jade')
