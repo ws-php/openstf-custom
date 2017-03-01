@@ -26,7 +26,7 @@ server {
     default_type 'text/html; charset=UTF-8';
 
     location /static/app/build/ {
-        alias C:/work/space/stf/res/build/;
+        alias C:/work/space/stf-all/openstf-custom/res/build/;
     }
 
     location / {
@@ -43,7 +43,7 @@ server {
 }
 #server stf.local end}
 ```
-因为 stf会在响应头中大量使用重定向到服务端地址,故使用 proxy_redirect 将响应头中的location 里的*http://10.0.2.124:7100/* 转换成 *http://stf.local/*. 再将 /static/app/build/ 的路径指到本地的代码路径*C:/work/space/stf/res/build/*,此目录是使用webpack生成的压缩代码.
+因为 stf会在响应头中大量使用重定向到服务端地址,故使用 proxy_redirect 将响应头中的location 里的*http://10.0.2.124:7100/* 转换成 *http://stf.local/*. 再将 /static/app/build/ 的路径指到本地的代码路径*C:/work/space/stf-all/openstf-custom/res/build/*,此目录是使用webpack生成的压缩代码.
 
 现在我们就可以在本地访问 http://stf.local 会打开一个登录页,输入用户名和邮箱之后,点击提交按钮,接着会跳到: 
 ```
@@ -55,7 +55,7 @@ http://stf.local/?jwt=eyJhbGciOiJIUzI1NiIsImV4cCI6MTQ4ODE5MDA1NzEyOH0.eyJlbWFpbC
 ```
 通过分析代码发现,在 
 ```
-C:\work\space\stf\res\build\5.72bd91b15fb1f9d91db5.chunk.js:32557
+C:\work\space\stf-all\openstf-custom\res\build\5.72bd91b15fb1f9d91db5.chunk.js:32557
 因为重定向的页面地址是服务端json串中返回的,所以nginx的proxy_redirect设置并不能防治,所以需要手动将其进行如下修改:
 $http.post('/auth/api/v1/mock', data)
 	      .success(function (response) {
@@ -114,7 +114,7 @@ gulp.task('mb', ['clean','jade','webpack:others', 'webpack:build'])
 ```
 方便代码生成.当前还是不知道如何像使用grunt watch 一样来监听代码的变动做到自动生成合并.
 
-接着 执行 ``gulp md`` 来生成res/build目录下的代码,打开浏览器访问 http://stf.local 发现可以登录,也可以去到设备列表,但是直接弹出一个连接失败的提示框,关闭之后,在设备列表中选择可以使用的设备时弹出找不到设备的错误提示.
+接着 执行 ``gulp mb`` 来生成res/build目录下的代码,打开浏览器访问 http://stf.local 发现可以登录,也可以去到设备列表,但是直接弹出一个连接失败的提示框,关闭之后,在设备列表中选择可以使用的设备时弹出找不到设备的错误提示.
 
 仔细比对 10.0.2.124 的代码发现是websocket链接获取不到cookie造成的, ``
 ws://10.0.2.124:7110/socket.io/uip=127.0.0.1&EIO=3&transport=websocket
@@ -133,8 +133,7 @@ server {
     default_type 'text/html; charset=UTF-8';
 
     location /static/app/build/ {
-        alias C:/work/space/stf-all/stf-2.0.0/res/build/;
-        #alias C:/work/space/stf/res/build/;
+        alias C:/work/space/stf-all/openstf-custom/res/build/;
     }
 
     location / {
@@ -170,7 +169,7 @@ server {
 ```
 新增一个 websocket的转发代理,另外搜索
 
-通过搜索 `GLOBAL_APPSTATE `找到文件 `C:\work\space\stf-all\stf-2.0.0\res\app\components\stf\app-state\app-state-provider.js`
+通过搜索 `GLOBAL_APPSTATE `找到文件 `C:\work\space\stf-all\openstf-custom\res\app\components\stf\app-state\app-state-provider.js`
 将其中部分代码调整成如下所示:
 ```
 /* global GLOBAL_APPSTATE:false */
@@ -183,6 +182,6 @@ server {
   }
 ```
 
-执行 ``gulp md`` 重新访问stf.local,就正常操作.
+执行 ``gulp mb`` 重新访问stf.local,就正常操作.
 
 至此 我们已经可以修改实际的源码,并通过 指令来合并代码了. 先这么用着吧,代码热更新的话留着之后再说吧,明天终于可以动手进行stf的深入学习了.

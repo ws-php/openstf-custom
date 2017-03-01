@@ -1,0 +1,80 @@
+[服务启动]
+
+nohub rethinkdb &
+nohub stf local  --allow-remote --public-ip 10.0.2.124 &
+
+[运行]
+
+http://10.0.2.124:7100
+
+
+[页面导航]
+
+设备列表: http://10.0.2.124:7100/#!/devices
+特定设备: http://10.0.2.124:7100/#!/control/2581cad3
+
+
+[引入的js]
+
+script(src='/app/api/v1/state.js')
+
+```
+var GLOBAL_APPSTATE = {"config":{"websocketUrl":"http://10.0.2.124:7110/?uip=%3A%3Affff%3A127.0.0.1"},"user":{"createdAt":"2017-02-22T03:32:16.637Z","email":"aaa@qq.com","forwards":[],"group":"SL5VSpNTRYuBDJT7kvLm0Q==","ip":"::ffff:127.0.0.1","lastLoggedInAt":"2017-02-22T03:32:16.637Z","name":"je","settings":{"deviceListActiveTabs":{"details":false,"icons":true},"lastUsedDevice":"2581cad3"}}}
+
+```
+
+script(src='static/app/build/entry/commons.entry.js')
+script(src='static/app/build/entry/app.entry.js')
+
+
+[api接口]
+
+== 登录:
+POST /auth/api/v1/mock HTTP/1.1
+(C:\work\space\stf\res\build\5.72bd91b15fb1f9d91db5.chunk.js:32557)
+
+{"name":"xx","email":"xx@qq.com"}
+
+{"success":true,"redirect":"http://10.0.2.124:7100/?jwt=eyJhbGciOiJIUzI1NiIsImV4cCI6MTQ4ODE5MDA1NzEyOH0.eyJlbWFpbCI6Inh4QHFxLmNvbSIsIm5hbWUiOiJ4eCJ9.DOOT1yZx6MXtCGzUWoPFxYuJYCw_wIHLslCJxEh5sp8"}
+
+
+== 上传:
+(C:\work\space\stf\lib\units\storage\s3.js)
+POST /s/upload/apk
+
+------WebKitFormBoundaryQg9IxrwD5spAyAsN
+Content-Disposition: form-data; name="file"; filename="anyiew-dsd-dsd想.apk"
+Content-Type: application/octet-stream
+
+
+------WebKitFormBoundaryQg9IxrwD5spAyAsN--
+
+{"success":true,"resources":{"file":{"date":"2017-02-27T07:33:25.595Z","plugin":"apk","id":"c74ba66c-22e8-4e08-938f-37206a974d09","name":"anyiew-dsd-dsd想.apk","href":"/s/apk/c74ba66c-22e8-4e08-938f-37206a974d09/anyiew-dsd-dsd想.apk"}}}
+
+== manifest:
+(C:\work\space\stf\lib\units\storage\plugins\apk\index.js)
+GET /s/apk/c74ba66c-22e8-4e08-938f-37206a974d09/anyiew-dsd-dsd%E6%83%B3.apk/manifest
+
+{
+	success: true,
+	manifest: {}
+}
+
+== 设备信息:
+
+http://10.0.2.124:7100/api/v1/devices/{设备id}
+
+== 
+http://10.0.2.124:7100//app/api/v1/dummy
+
+
+
+http://10.0.2.124:7100/app/api/v1/state.js
+
+var GLOBAL_APPSTATE = {"config":{"websocketUrl":"http://10.0.2.124:7110/?uip=127.0.0.1"},"user":{"createdAt":"2017-02-28T12:30:51.993Z","email":"xsd@c.cn","forwards":[],"group":"xAC2VJzvQIOxmUXdKVSK2g==","ip":"127.0.0.1","lastLoggedInAt":"2017-02-28T12:30:51.993Z","name":"xxx","settings":{}}}
+
+ws://10.0.2.124:7110/socket.io/?uip=127.0.0.1&EIO=3&transport=websocket
+
+var GLOBAL_APPSTATE = {"config":{"websocketUrl":"http://10.0.2.124:7110/?uip=%3A%3Affff%3A127.0.0.1"},"user":{"createdAt":"2017-02-28T12:06:58.412Z","email":"xxxxx@c.cn","forwards":[],"group":"9IJC05rfQaCO4y0HMue/sw==","ip":"::ffff:127.0.0.1","lastLoggedInAt":"2017-02-28T12:32:17.097Z","name":"xxx","settings":{}}}
+
+ws://10.0.2.124:7110/socket.io/?uip=%3A%3Affff%3A127.0.0.1&EIO=3&transport=websocket
