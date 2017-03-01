@@ -184,4 +184,49 @@ server {
 
 执行 ``gulp mb`` 重新访问stf.local,就正常操作.
 
-至此 我们已经可以修改实际的源码,并通过 指令来合并代码了. 先这么用着吧,代码热更新的话留着之后再说吧,明天终于可以动手进行stf的深入学习了.
+至此 我们已经可以修改实际的源码,并通过 指令来合并代码了. 先这么用着吧,代码自动合并的话留着之后再说吧,明天终于可以动手进行stf的深入学习了.
+
+手动执行``gulp mb``还是麻烦,之前使用过 grunt watch 觉得 非常方便,而gulp自带的watch存在只执行一次的问题,反复实验之后,安装如下两个包解决此问题:
+```
+npm install gulp-watch gulp-batch --save-dev
+```
+接着在 ``gulpfile.js``里面新增
+```
+var watch = require('gulp-watch');
+var batch = require('gulp-batch');
+
+gulp.task('watchbuild', function () { console.log('Working!', new Date()); });
+gulp.task('watch', function () {
+  var wa = [];
+  wa.push('res/app/**/*.js');
+  wa.push('res/auth/**/*.js');
+  wa.push('res/common/**/*.js');
+  wa.push('res/web_modules/**/*.js');
+
+  wa.push('res/app/**/*.jade');
+  wa.push('res/auth/**/*.jade');
+  wa.push('res/common/**/*.jade');
+  wa.push('res/web_modules/**/*.jade');
+
+  wa.push('res/app/**/*.css');
+  wa.push('res/auth/**/*.css');
+  wa.push('res/common/**/*.css');
+  wa.push('res/web_modules/**/*.css');
+
+  watch(wa, batch(function (events, done) {
+      del([
+        './tmp'
+        , './res/build'
+        , '.eslintcache'
+      ]);
+      // console.log(events, new Date());
+      // gulp.start('watchbuild');
+      gulp.start('webpack:build');
+      gulp.start('webpack:others');
+      done();
+  }));
+});
+```
+现在就可以直接使用 ``gulp watch`` 来进行自动代码合并了.
+
+遇到的问题是 gulp.start 不知道为什么不能使用 组合的任务,比如 mb, 不然只能修改一次就不会变化,怪异.
