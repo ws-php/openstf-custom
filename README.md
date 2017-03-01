@@ -2,6 +2,12 @@
 
 openstf是什么,服务器端环境如何安装配置此处就不表了,参见: https://testerhome.com/topics/2988
 
+建一个启动脚本: ``stf.start``
+```
+#!/bin/bash
+nohup rethinkdb &>/dev/null &
+nohup stf local  --allow-remote --public-ip 10.0.2.124 &>/dev/null &
+```
 
 最近需要在openstf上进行二次开发,前端团队这块主要针对界面的程序界面上进行功能调整,由于电脑不是mac,不能在本地私有部署stf环境,所以想依托公共的stf服务端环境 **10.0.2.124:7100**, 在本地开发调试其前端的js代码.
 
