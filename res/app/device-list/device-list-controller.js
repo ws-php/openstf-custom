@@ -145,8 +145,9 @@ module.exports = function DeviceListCtrl(
   $scope.filter = []
 
   $scope.activeTabs = {
-    icons: true
-  , details: false
+    icons: false
+  , details: true
+  , monkey: false
   }
 
   SettingsService.bind($scope, {

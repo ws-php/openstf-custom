@@ -108,7 +108,7 @@ gulp.task('watch', function () {
       ]);
       // console.log(events, new Date());
       // gulp.start('watchbuild');
-      gulp.start('webpack:build');
+      gulp.start('webpack:debug');
       gulp.start('webpack:others');
       done();
   }));
@@ -177,6 +177,34 @@ function fromString(filename, string) {
   return src
 }
 
+// For develop
+gulp.task('webpack:debug', function(callback) {
+  var myConfig = Object.create(webpackStatusConfig)
+  myConfig.plugins = myConfig.plugins.concat(
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('production')
+      }
+    })
+  )
+  // set devtool to source-map for debug
+  myConfig.devtool = 'source-map'
+
+  webpack(myConfig, function(err, stats) {
+    if (err) {
+      throw new gutil.PluginError('webpack:others', err)
+    }
+
+    gutil.log('[webpack:debug]', stats.toString({
+      colors: true
+    }))
+
+    fromString('stats.json', JSON.stringify(stats.toJson()))
+      .pipe(gulp.dest('./tmp/'))
+
+    callback()
+  })
+})
 
 // For production
 gulp.task('webpack:build', function(callback) {

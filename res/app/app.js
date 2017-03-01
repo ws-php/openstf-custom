@@ -2,9 +2,9 @@ require.ensure([], function(require) {
   require('angular')
   require('angular-route')
   require('angular-touch')
-console.log('ken');
+
   angular.module('app', [
-    'ngRoute',
+    'ngRoute', 
     'ngTouch',
     require('gettext').name,
     require('angular-hotkeys').name,

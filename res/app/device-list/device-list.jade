@@ -54,3 +54,11 @@
               div.device-list-details-content(ng-if='activeTabs.details').selectable
 
                 device-list-details(tracker='tracker', columns='columns', sort='sort', filter='filter').selectable
+
+            uib-tab(active='activeTabs.monkey', select='focusSearch()', ng-if='!$root.basicMode')
+              uib-tab-heading
+                i.fa.fa-list
+                span(translate) Monkey
+              div.device-list-monkey-content(ng-if='activeTabs.monkey').selectable
+
+                device-list-monkey(tracker='tracker', columns='columns', sort='sort', filter='filter').selectable

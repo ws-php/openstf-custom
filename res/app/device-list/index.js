@@ -10,6 +10,7 @@ module.exports = angular.module('device-list', [
   require('./column').name,
   require('./details').name,
   require('./empty').name,
+  require('./monkey').name,
   require('./icons').name,
   require('./stats').name,
   require('./customize').name,
