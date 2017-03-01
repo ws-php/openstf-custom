@@ -198,6 +198,7 @@ var batch = require('gulp-batch');
 gulp.task('watchbuild', function () { console.log('Working!', new Date()); });
 gulp.task('watch', function () {
   var wa = [];
+  wa.push('res/app/components/**/*.js');// 加入此行的目的是 res/app/components 下修改的代码不会自动合并,非常奇葩
   wa.push('res/app/**/*.js');
   wa.push('res/auth/**/*.js');
   wa.push('res/common/**/*.js');
