@@ -7,9 +7,12 @@ module.exports = function DeviceListCtrl(
 , GroupService
 , ControlService
 , SettingsService
+, FreeDeviceService
 , $location
 ) {
   $scope.tracker = DeviceService.trackAll($scope)
+  $scope.freedevices = FreeDeviceService.getAll($scope)
+  
   $scope.control = ControlService.create($scope.tracker.devices, '*ALL')
 
   $scope.columnDefinitions = DeviceColumnService

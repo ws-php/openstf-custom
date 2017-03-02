@@ -58,15 +58,15 @@
             uib-tab(active='activeTabs.monkey', select='focusSearch()', ng-if='!$root.basicMode')
               uib-tab-heading
                 i.fa.fa-list
-                span(translate) Monkey
+                span(translate) 无可用设备
               div.device-list-monkey-content(ng-if='activeTabs.monkey').selectable
 
-                device-list-monkey(tracker='tracker', columns='columns', sort='sort', filter='filter').selectable
+                device-list-monkey(freedevices='freedevices', columns='columns', sort='sort', filter='filter').selectable
 
             uib-tab(active='activeTabs.freedevice', select='focusSearch()', ng-if='!$root.basicMode')
               uib-tab-heading
                 i.fa.fa-list
-                span(translate) 空闲设备
+                span(translate) 可用设备
               div.device-list-freedevice-content(ng-if='activeTabs.freedevice').selectable
 
                 device-list-freedevice(tracker='tracker', columns='columns', sort='sort', filter='filter').selectable

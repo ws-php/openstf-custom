@@ -85,7 +85,7 @@ gulp.task('mb', ['clean','jade', 'webpack:build', 'webpack:others']);
 gulp.task('watchbuild', function () { console.log('Working!', new Date()); });
 gulp.task('watch', function () {
   var wa = [];
-  wa.push('res/app/components/**/*.js');
+  //wa.push('res/app/components/**/*.js');
   wa.push('res/app/**/*.js');
   wa.push('res/auth/**/*.js');
   wa.push('res/common/**/*.js');
@@ -110,7 +110,7 @@ gulp.task('watch', function () {
       // console.log(events, new Date());
       // gulp.start('watchbuild');
       gulp.start('webpack:debug');
-      gulp.start('webpack:others');
+      // gulp.start('webpack:others');
       done();
   }));
 });
