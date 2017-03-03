@@ -37,9 +37,15 @@ module.exports = angular.module('control-panes', [
         template: require('./control-panes.jade'),
         controller: 'ControlPanesCtrl'
       })
+      // TODO: add standalone
+      .when('/ycb/:serial', {
+        template: require('./control-panes-ycb.jade'),
+        controller: 'ControlPanesYcbCtrl'
+      })
   }])
   .factory('ControlPanesService', require('./control-panes-service'))
   .controller('ControlPanesCtrl', require('./control-panes-controller'))
+  .controller('ControlPanesYcbCtrl', require('./control-panes-ycb-controller'))
   .controller('ControlPanesNoDeviceController',
   require('./control-panes-no-device-controller'))
   .controller('ControlPanesHotKeysCtrl',

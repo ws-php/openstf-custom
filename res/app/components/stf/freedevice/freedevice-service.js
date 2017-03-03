@@ -83,7 +83,7 @@ module.exports = function FreeDeviceServiceFactory(
 	    }.bind(this)
 
 	    var modify = function modify(data, newData) {
-	      _.merge(data, newData, function(a, b) {
+	    	_.merge(data, newData, function(a, b) {
 	        // New Arrays overwrite old Arrays
 	        if (_.isArray(b)) {
 	          return b
@@ -103,8 +103,10 @@ module.exports = function FreeDeviceServiceFactory(
 	    }.bind(this)
 
 	    function fetch(data) {
+	    	console.log('fetch serial: ', data.serial)
 	      DeviceService.load(data.serial)
 	        .then(function(device) {
+	        	device.kenis = true
 	          return changeListener({
 	            important: true
 	          , data: device
@@ -113,7 +115,6 @@ module.exports = function FreeDeviceServiceFactory(
 	        .catch(function() {})
 	    }
 
-
 	    function addListener(event) {
 	      var device = get(event.data)
 	      if (device) {
@@ -121,6 +122,7 @@ module.exports = function FreeDeviceServiceFactory(
 	        notify(event)
 	      }
 	      else {
+	      	console.log('addListener: ', event.data)
 	        if (options.filter(event.data)) {
 	          insert(event.data)
 	          notify(event)
@@ -134,22 +136,29 @@ module.exports = function FreeDeviceServiceFactory(
 	      if (device) {
 	        modify(device, event.data)
 
-	        console.log('change: had', device)
+	        console.log('change: had', device.serial, device)
 	        if (!options.filter(device)) {
 	          remove(device)
 	        }
 	        notify(event)
 	      }
 	      else {
-	      	console.log('change: new', event.data)
-	        if (options.filter(event.data)) {
+	      	// 如果是从 socket 接过来的数据
+	      	console.log('change: new', event.data.serial, event.data)
 
+	      	if (options.filter(event.data)) {
 	          insert(event.data)
 	          // We've only got partial data
-	          fetch(event.data)
 	          notify(event)
 	        }
+	        else
+	        {
+	        	fetch(event.data)
+	        }
+
 	      }
+
+	      console.log('all devices: ', devices);
 	    }
 
 	    scopedSocket.on('device.add', addListener)
@@ -157,6 +166,7 @@ module.exports = function FreeDeviceServiceFactory(
 	    scopedSocket.on('device.change', changeListener)
 
 		this.add = function(device) {
+
 	      addListener({
 	        important: true
 	      , data: device
@@ -179,7 +189,7 @@ module.exports = function FreeDeviceServiceFactory(
 	    var freeDevice = new FreeDevice($scope, {
 	      filter: function(device) {
 	      	var usable = isUsable(device);
-	      	console.log(usable,device.using,device)
+	      	// console.log(usable,device.using,device)
 	      	return usable
 	      }
 	      , digest: false
@@ -187,7 +197,8 @@ module.exports = function FreeDeviceServiceFactory(
 
 	    oboe('/api/v1/devices?kenis=123')
 	      .node('devices[*]', function(device) {
-	        freeDevice.add(device)
+	      	device.kenis = true
+	      	freeDevice.add(device)
 	      })
 
 	    return freeDevice

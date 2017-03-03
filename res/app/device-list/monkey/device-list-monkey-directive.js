@@ -20,7 +20,7 @@ console.log("不要踩异步数据的坑",freedevices.devices.length);
       function update() {
         var oldEmpty = scope.empty
         var newEmpty = !freedevices.devices.length
-console.log('可用设备个数: ', freedevices.devices)
+console.log('可用设备个数: ', freedevices.devices.length)
         if (oldEmpty !== newEmpty) {
           scope.$apply(function() {
             scope.empty = newEmpty

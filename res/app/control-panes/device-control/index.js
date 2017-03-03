@@ -14,6 +14,9 @@ module.exports = angular.module('device-control', [
     $templateCache.put('control-panes/device-control/device-control-standalone.jade',
       require('./device-control-standalone.jade')
     )
+    $templateCache.put('control-panes/device-control/device-control-ycb.jade',
+      require('./device-control-ycb.jade')
+    )
   }])
   .controller('DeviceControlCtrl', require('./device-control-controller'))
   .directive('deviceControlKey', require('./device-control-key-directive'))

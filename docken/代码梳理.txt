@@ -78,3 +78,95 @@ ws://10.0.2.124:7110/socket.io/?uip=127.0.0.1&EIO=3&transport=websocket
 var GLOBAL_APPSTATE = {"config":{"websocketUrl":"http://10.0.2.124:7110/?uip=%3A%3Affff%3A127.0.0.1"},"user":{"createdAt":"2017-02-28T12:06:58.412Z","email":"xxxxx@c.cn","forwards":[],"group":"9IJC05rfQaCO4y0HMue/sw==","ip":"::ffff:127.0.0.1","lastLoggedInAt":"2017-02-28T12:32:17.097Z","name":"xxx","settings":{}}}
 
 ws://10.0.2.124:7110/socket.io/?uip=%3A%3Affff%3A127.0.0.1&EIO=3&transport=websocket
+
+
+
+
+
+
+
+
+[设备相关接口]
+
+设备列表:
+http://stf.local/api/v1/devices
+
+可用设备判断:
+function isUsable(device)
+	{
+		return device.present && device.status === 3 && device.ready &&
+	        (!device.owner || device.using)
+	}
+
+设备详情
+http://stf.local/api/v1/devices/2581cad3
+
+
+
+
+
+
+POST http://stf.local/auth/api/v1/mock
+
+{"name":"xxx","email":"xxxx@d.cn"}
+
+Cookie:XSRF-TOKEN=pTAdbb03-aWjNSOCFRvZYFmQet6SnBFj2w-0; ssid=eyJjc3JmU2VjcmV0IjoieXpxNnFsSDJfWUIwQlZTTWQzZTZZNDV6In0=; ssid.sig=V5fWNjxUba9EYbufD9CB2EoWOsg
+
+
+Connection:keep-alive
+Content-Length:196
+Content-Type:application/json; charset=utf-8
+Date:Fri, 03 Mar 2017 10:21:48 GMT
+etag:W/"c4-lKwhYasao3lCP9gYxcQ7pA"
+set-cookie:XSRF-TOKEN=UGj05eYx-oMYCLw-5XNqDClXzn994L4R-Q4E; Path=/
+x-powered-by:Express
+
+{"success":true,"redirect":"eyJhbGciOiJIUzI1NiIsImV4cCI6MTQ4ODUzNjM4OTU1OH0.eyJlbWFpbCI6Inh4eHhAZC5jbiIsIm5hbWUiOiJ4eHgifQ._pCVmMOvQqsQbkNf6PAELN-bb9GiZ6bOF9k5L2fnqd8"}
+
+
+--------------------------------------------------------------------
+
+GET /?jwt=eyJhbGciOiJIUzI1NiIsImV4cCI6MTQ4ODUzNjM4OTU1OH0.eyJlbWFpbCI6Inh4eHhAZC5jbiIsIm5hbWUiOiJ4eHgifQ._pCVmMOvQqsQbkNf6PAELN-bb9GiZ6bOF9k5L2fnqd8 HTTP/1.1
+Host: stf.local
+Connection: keep-alive
+Pragma: no-cache
+Cache-Control: no-cache
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+DNT: 1
+Referer: http://stf.local/auth/mock/
+Accept-Encoding: gzip, deflate, sdch
+Accept-Language: zh-CN,zh;q=0.8
+Cookie: ssid=eyJjc3JmU2VjcmV0IjoieXpxNnFsSDJfWUIwQlZTTWQzZTZZNDV6In0=; ssid.sig=V5fWNjxUba9EYbufD9CB2EoWOsg; XSRF-TOKEN=UGj05eYx-oMYCLw-5XNqDClXzn994L4R-Q4E
+
+
+
+HTTP/1.1 302 Moved Temporarily
+Date: Fri, 03 Mar 2017 10:21:48 GMT
+Content-Type: text/html; charset=utf-8
+Content-Length: 58
+Connection: keep-alive
+x-powered-by: Express
+location: /
+vary: Accept, Accept-Encoding
+set-cookie: ssid=eyJjc3JmU2VjcmV0IjoieXpxNnFsSDJfWUIwQlZTTWQzZTZZNDV6Iiwiand0Ijp7ImVtYWlsIjoieHh4eEBkLmNuIiwibmFtZSI6Inh4eCJ9fQ==; path=/; httponly
+set-cookie: ssid.sig=ROXkxrJ8WlK-gLTPrMPKCBeThms; path=/; httponly
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
