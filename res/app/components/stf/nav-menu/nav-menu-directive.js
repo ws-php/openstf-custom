@@ -6,6 +6,7 @@ module.exports = function($location) {
     restrict: 'EA',
     scope: {},
     link: function(scope, element, attrs) {
+      
       var links = element.find('a')
       var onClass = attrs.navMenu || 'current'
       var urlMap = []

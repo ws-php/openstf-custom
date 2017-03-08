@@ -1,6 +1,8 @@
 module.exports = function MenuCtrl($scope, $rootScope, SettingsService,
   $location) {
 
+  $scope.showis = $location.path().search('/ycb/') === -1
+
   SettingsService.bind($scope, {
     target: 'lastUsedDevice'
   })

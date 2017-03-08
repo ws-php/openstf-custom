@@ -2,7 +2,8 @@ module.exports =
   function($scope, gettext, $location, $rootScope, ScopedHotkeysService,
     $window) {
 
-    $scope.remotePaneSize = '30% + 2px'
+    //$scope.remotePaneSize = '30% + 2px'
+    $scope.remotePaneSize = '100%'
 
     var actions = {
       previousDevice: function() {

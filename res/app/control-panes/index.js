@@ -37,10 +37,14 @@ module.exports = angular.module('control-panes', [
         template: require('./control-panes.pug'),
         controller: 'ControlPanesCtrl'
       })
+      // TODO: add ycb
+      .when('/ycb/:serial', {
+        template: require('./control-panes-ycb.pug'),
+        controller: 'ControlPanesYcbCtrl'
+      })
   }])
   .factory('ControlPanesService', require('./control-panes-service'))
   .controller('ControlPanesCtrl', require('./control-panes-controller'))
-  .controller('ControlPanesNoDeviceController',
-  require('./control-panes-no-device-controller'))
-  .controller('ControlPanesHotKeysCtrl',
-  require('./control-panes-hotkeys-controller'))
+  .controller('ControlPanesNoDeviceController', require('./control-panes-no-device-controller'))
+  .controller('ControlPanesHotKeysCtrl', require('./control-panes-hotkeys-controller'))
+  .controller('ControlPanesYcbCtrl', require('./control-panes-ycb-controller'))

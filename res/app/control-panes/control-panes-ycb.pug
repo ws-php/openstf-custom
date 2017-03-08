@@ -1,0 +1,6 @@
+div(ng-controller='ControlPanesHotKeysCtrl').fill-height
+  div()
+    div(fa-pane, pane-id='control-device', pane-anchor='west', pane-size='{{remotePaneSize}}', pane-min='200px', pane-max='100%', pane-handle='1', pane-no-toggle='true')
+
+      .remote-control
+        div(ng-include='"control-panes/device-control/device-control-ycb.pug"').fill-width.fill-height
