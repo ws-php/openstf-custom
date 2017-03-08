@@ -193,7 +193,7 @@ gulp.task('webpack:debug', function(callback) {
 
   webpack(myConfig, function(err, stats) {
     if (err) {
-      throw new gutil.PluginError('webpack:others', err)
+      throw new gutil.PluginError('webpack:build', err)
     }
 
     gutil.log('[webpack:debug]', stats.toString({
