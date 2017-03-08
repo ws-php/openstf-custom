@@ -19,6 +19,9 @@ var karmaConfig = '/res/test/karma.conf.js'
 var stream = require('stream')
 var run = require('gulp-run')
 
+var watch = require('gulp-watch');
+var batch = require('gulp-batch');
+
 gulp.task('jsonlint', function() {
   return gulp.src([
       '.bowerrc'
@@ -79,6 +82,41 @@ gulp.task('eslint-cli', function(done) {
 gulp.task('lint', ['jsonlint', 'eslint-cli'])
 gulp.task('test', ['lint', 'run:checkversion'])
 gulp.task('build', ['clean', 'webpack:build'])
+
+
+
+gulp.task('watchbuild', function () { console.log('Working!', new Date()); });
+gulp.task('watch', function () {
+  var wa = [];
+  //wa.push('res/app/components/**/*.js');
+  wa.push('res/app/**/*.js');
+  wa.push('res/auth/**/*.js');
+  wa.push('res/common/**/*.js');
+  wa.push('res/web_modules/**/*.js');
+
+  wa.push('res/app/**/*.pug');
+  wa.push('res/auth/**/*.pug');
+  wa.push('res/common/**/*.pug');
+  wa.push('res/web_modules/**/*.pug');
+
+  wa.push('res/app/**/*.css');
+  wa.push('res/auth/**/*.css');
+  wa.push('res/common/**/*.css');
+  wa.push('res/web_modules/**/*.css');
+
+  watch(wa, batch(function (events, done) {
+      del([
+        './tmp'
+        , './res/build'
+        , '.eslintcache'
+      ]);
+      // console.log(events, new Date());
+      // gulp.start('watchbuild');
+      gulp.start('webpack:debug');
+      // gulp.start('webpack:others');
+      done();
+  }));
+});
 
 gulp.task('run:checkversion', function() {
   gutil.log('Checking STF version...')
@@ -143,6 +181,34 @@ function fromString(filename, string) {
   return src
 }
 
+// For develop
+gulp.task('webpack:debug', function(callback) {
+  var myConfig = Object.create(webpackStatusConfig)
+  myConfig.plugins = myConfig.plugins.concat(
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('production')
+      }
+    })
+  )
+  // set devtool to source-map for debug
+  myConfig.devtool = 'source-map'
+
+  webpack(myConfig, function(err, stats) {
+    if (err) {
+      throw new gutil.PluginError('webpack:build', err)
+    }
+
+    gutil.log('[webpack:debug]', stats.toString({
+      colors: true
+    }))
+
+    fromString('stats.json', JSON.stringify(stats.toJson()))
+      .pipe(gulp.dest('./tmp/'))
+
+    callback()
+  })
+})
 
 // For production
 gulp.task('webpack:build', function(callback) {

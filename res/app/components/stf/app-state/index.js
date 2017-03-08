@@ -1,3 +1,3 @@
 module.exports = angular.module('stf.app-state', [
-])
-  .provider('AppState', require('./app-state-provider.js'))
+	require('stf/custom-domain').name
+]).provider('AppState', require('./app-state-provider.js'))

@@ -1,6 +1,8 @@
 require('./signin.css')
 
-module.exports = angular.module('stf.signin', [])
+module.exports = angular.module('stf.signin', [
+		require('stf/custom-domain').name
+	])
   .config(function($routeProvider) {
     $routeProvider
       .when('/auth/mock/', {

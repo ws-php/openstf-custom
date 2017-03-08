@@ -1,4 +1,4 @@
-module.exports = function SignInCtrl($scope, $http) {
+module.exports = function SignInCtrl($scope, $http, CustomDomain) {
 
   $scope.error = null
 
@@ -10,8 +10,11 @@ module.exports = function SignInCtrl($scope, $http) {
     $scope.invalid = false
     $http.post('/auth/api/v1/mock', data)
       .success(function(response) {
-        $scope.error = null
-        location.replace(response.redirect)
+        $scope.error = null;
+        console.log('{api}/auth/api/v1/mock',response);
+        var redirect = CustomDomain.getWwwUrl(response.redirect);
+        console.log(redirect);
+        location.replace(redirect);
       })
       .error(function(response) {
         switch (response.error) {
