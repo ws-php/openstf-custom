@@ -1,6 +1,6 @@
 div(ng-controller='ControlPanesHotKeysCtrl').fill-height
   
-  div(ng-if='!$root.basicMode && !$root.standalone')
+  div()
     div(fa-pane, pane-id='control-device', pane-anchor='west', pane-size='{{remotePaneSize}}', pane-min='200px', pane-max='100% + 2px', pane-handle='4', pane-no-toggle='false')
 
       .remote-control

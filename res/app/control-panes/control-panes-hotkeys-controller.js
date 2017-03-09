@@ -2,8 +2,14 @@ module.exports =
   function($scope, gettext, $location, $rootScope, ScopedHotkeysService,
     $window) {
 
-    // $scope.remotePaneSize = '30% + 2px'
-    $scope.remotePaneSize = '98% + 2px'
+    if ($location.path().search('/ycb/') !== -1)
+    {
+      $scope.remotePaneSize = '100% + 2px'
+    }
+    else
+    {
+      $scope.remotePaneSize = '30% + 2px'
+    }    
 
     var actions = {
       previousDevice: function() {

@@ -1,5 +1,5 @@
 // NOTE: Most of the detection stuff is from Modernizr 3.0
-module.exports = function BrowserInfoServiceFactory() {
+module.exports = function BrowserInfoServiceFactory($location) {
   var service = {}
 
   function createElement() {
@@ -32,6 +32,10 @@ module.exports = function BrowserInfoServiceFactory() {
   })
 
   addTest('mobile', function() {
+    if ($location.path().search('/ycb/') !== -1)
+    {
+      return true
+    }
     return !!(service.small && service.touch)
   })
 
